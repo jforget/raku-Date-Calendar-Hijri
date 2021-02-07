@@ -1,0 +1,6 @@
+use Test;
+use Date::Calendar::Hijri;
+
+pass "replace me";
+
+done-testing;

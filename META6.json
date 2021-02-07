@@ -1,0 +1,24 @@
+{
+  "authors": [
+    "Jean Forget"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "blah blah blah",
+  "license": "Artistic-2.0",
+  "name": "Date::Calendar::Hijri",
+  "perl": "6.d",
+  "provides": {
+    "Date::Calendar::Hijri": "lib/Date/Calendar/Hijri.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}
