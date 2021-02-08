@@ -1,12 +1,14 @@
 {
+  "auth" : "cpan:JFORGET",
   "authors": [
     "Jean Forget"
   ],
   "build-depends": [
   ],
   "depends": [
+      "Date::Calendar::Strftime"
   ],
-  "description": "blah blah blah",
+  "description": "Arithmetic Variant of the Hijri Calendar",
   "license": "Artistic-2.0",
   "name": "Date::Calendar::Hijri",
   "perl": "6.d",
@@ -15,10 +17,16 @@
   },
   "resources": [
   ],
-  "source-url": "",
+  "source-url" : "https://github.com/jforget/raku-Date-Calendar-Hijri.git",
+  "support" : {
+    "email" : "JFORGET@cpan.org"
+  },
   "tags": [
+      "date"
+    , "calendar"
   ],
   "test-depends": [
+      "Test::META"
   ],
   "version": "0.0.1"
 }

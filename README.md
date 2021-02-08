@@ -46,7 +46,7 @@ moon crescent after a new moon.  But there is an unofficial arithmetic
 variant, which differs from the real one by one or two days.
 
 Date::Calendar::Hijri is a class  representing dates in the arithmetic
-variant of the Hijri calendar. It allows you to convert an Hebrew date
+variant of the  Hijri calendar. It allows you to  convert a Hijri date
 into Gregorian (or possibly other) calendar and the other way.
 
 INSTALLATION
