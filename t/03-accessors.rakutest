@@ -1,0 +1,20 @@
+#
+# Checking the getters
+#
+use v6.c;
+use Test;
+use Date::Calendar::Hijri;
+
+plan  6;
+
+my Date::Calendar::Hijri $d .= new(year => 1442, month => 6, day => 25);
+
+is($d.month,   6);
+is($d.day,    25);
+is($d.year, 1442);
+is($d.gist      , '1442-06-25');
+is($d.month-abbr, 'J.T');
+is($d.month-name, 'Jumaada al-Thaani');
+#is($d.day-name,   'Yaum al-Ithnain');
+#is($d.day-abbr,   'Ith');
+

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8; indent-tabs-mode: nil -*-
 
 use Date::Calendar::Strftime;
+use Date::Calendar::Hijri::Names;
 unit class Date::Calendar::Hijri:ver<0.0.1>:auth<cpan:JFORGET>
       does Date::Calendar::Strftime;
 
@@ -12,6 +13,27 @@ has Int $.day-of-year;
 has Int $.day-of-week;
 has Int $.week-number;
 has Int $.week-year;
+
+method gist {
+  sprintf("%04d-%02d-%02d", $.year, $.month, $.day);
+}
+
+method month-name {
+  Date::Calendar::Hijri::Names::month-name($.month);
+}
+
+method month-abbr {
+  Date::Calendar::Hijri::Names::month-abbr($.month);
+}
+
+method day-name {
+  Date::Calendar::Hijri::Names::day-name($.day-of-week - 1);
+}
+
+method day-abbr {
+  Date::Calendar::Hijri::Names::day-abbr($.day-of-week - 1);
+}
+
 
 =begin pod
 

@@ -13,7 +13,8 @@
   "name": "Date::Calendar::Hijri",
   "perl": "6.d",
   "provides": {
-    "Date::Calendar::Hijri": "lib/Date/Calendar/Hijri.rakumod"
+      "Date::Calendar::Hijri":        "lib/Date/Calendar/Hijri.rakumod"
+    , "Date::Calendar::Hijri::Names": "lib/Date/Calendar/Hijri/Names.rakumod"
   },
   "resources": [
   ],
