@@ -81,7 +81,8 @@ sub month-days(Int $year, Int $month --> Int) {
 }
 
 sub is-leap(Int $year --> Any) {
-  return $year % 30 == 2 | 5 | 7 | 10 | 13 | 16 | 18 | 21 | 24 | 26 | 29;
+  return True if $year % 30 == 2 | 5 | 7 | 10 | 13 | 16 | 18 | 21 | 24 | 26 | 29;
+  return False;
 }
 
 
