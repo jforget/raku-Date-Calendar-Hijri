@@ -19,16 +19,16 @@ my @month-names = ( "Muharram"
 my @month-abbr = < Muh Saf R.A R.T J.A J.T
                    Raj Sha Ram Shw Qid Hij >
 ;
-my @day-names = ( "Yaum al-Ithnain"
+my @day-names = ( "Yaum al-Ahad"
+                , "Yaum al-Ithnain"
                 , "Yaum al-Thulatha"
                 , "Yaum al-Arbi'a"
                 , "Yaum al-Khamees"
                 , "Yaum al-Jumma"
                 , "Yaum al-Sabt"
-                , "Yaum al-Ahad"
 );
 
-my @day-abbr = < Ith Thl Arb Kha Jum Sab Ahd >;
+my @day-abbr = < Ahd Ith Thl Arb Kha Jum Sab >;
 
 our sub month-name(Int:D $month --> Str) {
   return @month-names[$month - 1];
