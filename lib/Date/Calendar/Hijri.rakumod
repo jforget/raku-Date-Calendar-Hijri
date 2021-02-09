@@ -41,8 +41,14 @@ method _build-from-args(Int $year, Int $month, Int $day) {
 
   # computing derived attributes TODO
   my Int $daycount   = $f2($year) + $f1($month) + $f0($day) - jd-to-mjd();
-  my Int $doy        = 0;
   my Int $dow        = 1 + ($daycount + 3) % 7;
+  # The JD (*un*modified Julian Day) for 1 Muharram same year is
+  # $f2($year) + $f1( 1 ) + $f0( 1 )
+  # but $f1( 1 ) == $f0( 1 ) == 0, so the JD of 1 Muharram is simply $f2($year).
+  # By subtracting it from the formula for the computed day, there are $nb days
+  # between 1 Muharram and the target day, where $nb == $f1($month) + $f0($day).
+  # Add 1 and you have the day-of-year value.
+  my Int $doy        = 1 + $f1($month) + $f0($day);
 
   # storing derived attributes
   $!day-of-year = $doy;
