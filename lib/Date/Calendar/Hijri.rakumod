@@ -14,6 +14,46 @@ has Int $.day-of-week;
 has Int $.week-number;
 has Int $.week-year;
 
+method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
+  $._chek-build-args($year, $month, $day);
+  $._build-from-args($year, $month, $day);
+}
+
+method _chek-build-args(Int $year, Int $month, Int $day) {
+  unless 1 ≤ $month ≤ 12 {
+    X::OutOfRange.new(:what<Month>, :got($month), :range<1..12>).throw;
+  }
+  my $limit =  month-days($year, $month);
+  unless 1 ≤ $day ≤ $limit {
+    X::OutOfRange.new(:what<Day>, :got($day), :range("1..$limit for this month and this year")).throw;
+  }
+}
+
+method _build-from-args(Int $year, Int $month, Int $day) {
+  $!year   = $year;
+  $!month  = $month;
+  $!day    = $day;
+
+  # computing derived attributes TODO
+  my Int $daycount   = 0;
+  my Int $doy        = 0;
+  my Int $dow        = 2;
+
+  # storing derived attributes
+  $!day-of-year = $doy;
+  $!day-of-week = $dow;
+  $!daycount    = $daycount;
+
+  # computing week-related derived attributes TODO
+  my Int $week-year  = $year;
+  my Int $week-number = 0;
+
+  # storing week-related derived attributes
+  $!week-number = $week-number;
+  $!week-year   = $week-year;
+}
+
+
 method gist {
   sprintf("%04d-%02d-%02d", $.year, $.month, $.day);
 }
@@ -32,6 +72,16 @@ method day-name {
 
 method day-abbr {
   Date::Calendar::Hijri::Names::day-abbr($.day-of-week - 1);
+}
+
+sub month-days(Int $year, Int $month --> Int) {
+ return 29 if $month ==  2 | 4 | 6 | 8 | 10;
+ return 29 if $month == 12 && ! is-leap($year);
+ return 30;
+}
+
+sub is-leap(Int $year --> Any) {
+  return $year % 30 == 2 | 5 | 7 | 10 | 13 | 16 | 18 | 21 | 24 | 26 | 29;
 }
 
 
