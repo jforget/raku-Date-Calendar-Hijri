@@ -56,8 +56,22 @@ method _build-from-args(Int $year, Int $month, Int $day) {
   $!daycount    = $daycount;
 
   # computing week-related derived attributes TODO
+  my Int $doy-arbi'a = $doy - $dow + 4; # day-of-year value for the nearest Yaum al-Arbi'a / Wednesday
   my Int $week-year  = $year;
-  my Int $week-number = 0;
+  if $doy-arbi'a ≤ 0 {
+    -- $week-year;
+    $doy       += year-days($week-year);
+    $doy-arbi'a = $doy - $dow + 4;
+  }
+  else {
+    my $year-length = year-days($week-year);
+    if $doy-arbi'a > $year-length {
+      $doy       -= $year-length;
+      $doy-arbi'a = $doy - $dow + 4;
+      ++ $week-year;
+    }
+  }
+  my Int $week-number = ($doy-arbi'a / 7).ceiling;
 
   # storing week-related derived attributes
   $!week-number = $week-number;
@@ -89,6 +103,11 @@ sub month-days(Int $year, Int $month --> Int) {
  return 29 if $month ==  2 | 4 | 6 | 8 | 10;
  return 29 if $month == 12 && ! is-leap($year);
  return 30;
+}
+
+sub year-days(Int $year --> Int) {
+ return 355 if is-leap($year);
+ return 354;
 }
 
 sub is-leap(Int $year --> Any) {

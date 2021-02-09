@@ -5,7 +5,21 @@ use v6.c;
 use Test;
 use Date::Calendar::Hijri;
 
-plan  10;
+my @tests = (('zzz',       3, 'zzz')
+           , ('%Y-%m-%d', 10, '1442-06-25')
+           , ('%j',        3, '173')
+           , ('%Oj',       3, '173')
+           , ('%Ej',       3, '173')
+           , ('%Ey',       3, '%Ey')
+           , ('%A',       15, 'Yaum al-Ithnain')
+           , ('%u',        1, '2')
+           , ('%B',       17, 'Jumaada al-Thaani')
+           , ('%b',        3, 'J.T')
+           , ('%Y',        4, '1442')
+           , ('%G',        4, '1442')
+           , ('%V',        2, '25')
+             );
+plan  10 + 2 × @tests.elems;
 
 my Date::Calendar::Hijri $d .= new(year => 1442, month => 6, day => 25);
 
@@ -20,3 +34,15 @@ is($d.day-name   , 'Yaum al-Ithnain');
 is($d.day-abbr   , 'Ith');
 is($d.day-of-year, 173);
 
+
+for @tests -> $test {
+  my ($format, $length, $expected) = $test;
+  my $result = $d.strftime($format);
+
+  # Remembering RT ticket 100311 for the Perl 5 module DateTime::Calendar::FrenchRevolutionary
+  # see https://github.com/jforget/DateTime-Calendar-FrenchRevolutionary/issues/6
+  # Even if the relations between UTF-8 and Perl6 are much simpler than between UTF-8 and Perl5
+  # better safe than sorry
+  is($result.chars, $length);
+  is($result,       $expected);
+}
