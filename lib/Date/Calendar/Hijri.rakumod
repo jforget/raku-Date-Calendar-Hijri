@@ -29,17 +29,17 @@ method _chek-build-args(Int $year, Int $month, Int $day) {
   }
 }
 
+# See "la Saga des Calendriers", page 155
+my ($f0, $g0) = make-fct(     1,  1,         -1);
+my ($f1, $g1) = make-fct(   325, 11,       -320);
+my ($f2, $g2) = make-fct(10_631, 30, 58_442_583);
+
 method _build-from-args(Int $year, Int $month, Int $day) {
   $!year   = $year;
   $!month  = $month;
   $!day    = $day;
 
-  # See "la Saga des Calendriers", page 155
-  my ($f0, $g0) = make-fct(     1,  1,         -1);
-  my ($f1, $g1) = make-fct(   325, 11,       -320);
-  my ($f2, $g2) = make-fct(10_631, 30, 58_442_583);
-
-  # computing derived attributes TODO
+  # computing derived attributes
   my Int $daycount   = $f2($year) + $f1($month) + $f0($day) - jd-to-mjd();
   my Int $dow        = 1 + ($daycount + 3) % 7;
   # The JD (*un*modified Julian Day) for 1 Muharram same year is
