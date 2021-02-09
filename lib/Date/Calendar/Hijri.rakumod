@@ -34,10 +34,15 @@ method _build-from-args(Int $year, Int $month, Int $day) {
   $!month  = $month;
   $!day    = $day;
 
+  # See "la Saga des Calendriers", page 155
+  my ($f0, $g0) = make-fct(     1,  1,         -1);
+  my ($f1, $g1) = make-fct(   325, 11,       -320);
+  my ($f2, $g2) = make-fct(10_631, 30, 58_442_583);
+
   # computing derived attributes TODO
-  my Int $daycount   = 0;
+  my Int $daycount   = $f2($year) + $f1($month) + $f0($day) - jd-to-mjd();
   my Int $doy        = 0;
-  my Int $dow        = 2;
+  my Int $dow        = 1 + ($daycount + 3) % 7;
 
   # storing derived attributes
   $!day-of-year = $doy;
@@ -83,6 +88,16 @@ sub month-days(Int $year, Int $month --> Int) {
 sub is-leap(Int $year --> Any) {
   return True if $year % 30 == 2 | 5 | 7 | 10 | 13 | 16 | 18 | 21 | 24 | 26 | 29;
   return False;
+}
+
+sub make-fct(int $a, int $b, int $c) {
+  my $f = sub (int $x) { (($a × $x + $c         ).Rat / $b).floor };
+  my $g = sub (int $x) { (($b × $x + $b - 1 - $c).Rat / $a).floor };
+  return $f, $g;
+}
+
+sub jd-to-mjd {
+  2_400_001;
 }
 
 

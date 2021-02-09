@@ -5,13 +5,14 @@ use v6.c;
 use Test;
 use Date::Calendar::Hijri;
 
-plan  8;
+plan  9;
 
 my Date::Calendar::Hijri $d .= new(year => 1442, month => 6, day => 25);
 
 is($d.month,   6);
 is($d.day,    25);
 is($d.year, 1442);
+is($d.daycount  , 59253);
 is($d.gist      , '1442-06-25');
 is($d.month-abbr, 'J.T');
 is($d.month-name, 'Jumaada al-Thaani');
