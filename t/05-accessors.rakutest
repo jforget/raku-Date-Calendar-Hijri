@@ -1,0 +1,50 @@
+#
+# Checking the getters when the date was created by conversion from another calendar
+# instead of being created with the Y-M-D values.
+#
+use v6.c;
+use Test;
+use Date::Calendar::Hijri;
+
+my @tests = (('zzz',       3, 'zzz')
+           , ('%Y-%m-%d', 10, '1442-06-27')
+           , ('%j',        3, '175')
+           , ('%Oj',       3, '175')
+           , ('%Ej',       3, '175')
+           , ('%Ey',       3, '%Ey')
+           , ('%A',       14, "Yaum al-Arbi'a")
+           , ('%u',        1, '4')
+           , ('%B',       17, 'Jumaada al-Thaani')
+           , ('%b',        3, 'J.T')
+           , ('%Y',        4, '1442')
+           , ('%G',        4, '1442')
+           , ('%V',        2, '25')
+             );
+plan  10 + 2 × @tests.elems;
+
+my Date $d0 .= new('2021-02-10');
+my Date::Calendar::Hijri $d .= new-from-date($d0);
+
+is($d.month,   6);
+is($d.day,    27);
+is($d.year, 1442);
+is($d.daycount   , 59255);
+is($d.gist       , '1442-06-27');
+is($d.month-abbr , 'J.T');
+is($d.month-name , 'Jumaada al-Thaani');
+is($d.day-name   , "Yaum al-Arbi'a");
+is($d.day-abbr   , 'Arb');
+is($d.day-of-year, 175);
+
+
+for @tests -> $test {
+  my ($format, $length, $expected) = $test;
+  my $result = $d.strftime($format);
+
+  # Remembering RT ticket 100311 for the Perl 5 module DateTime::Calendar::FrenchRevolutionary
+  # see https://github.com/jforget/DateTime-Calendar-FrenchRevolutionary/issues/6
+  # Even if the relations between UTF-8 and Perl6 are much simpler than between UTF-8 and Perl5
+  # better safe than sorry
+  is($result.chars, $length);
+  is($result,       $expected);
+}

@@ -30,6 +30,9 @@ method _chek-build-args(Int $year, Int $month, Int $day) {
 }
 
 # See "la Saga des Calendriers", page 155
+#                                                   -1
+# The "$g" functions are actually the "fₙ⁻¹" (or  "f  " functions, but I am not sure how to create raku identifiers with superscripts.
+#                                                   n
 my ($f0, $g0) = make-fct(     1,  1,         -1);
 my ($f1, $g1) = make-fct(   325, 11,       -320);
 my ($f2, $g2) = make-fct(10_631, 30, 58_442_583);
@@ -99,6 +102,27 @@ method day-abbr {
   Date::Calendar::Hijri::Names::day-abbr($.day-of-week - 1);
 }
 
+method new-from-date($date) {
+  $.new-from-daycount($date.daycount);
+}
+
+method new-from-daycount(Int $count) {
+  # See "la Saga des Calendriers", page 155
+  my Int $JJ     = $count + jd-to-mjd();
+  my Int $yyyy   = $g2($JJ);
+  my Int $R2     = $JJ - $f2($yyyy);
+  my Int $mm     = $g1($R2);
+  my Int $R1     = $R2 - $f1($mm);
+  my Int $dd     = $g0($R1);
+  $.new(year => $yyyy, month => $mm, day => $dd);
+}
+
+method to-date($class = 'Date') {
+  # See "Learning Perl 6" page 177
+  my $d = ::($class).new-from-daycount($.daycount);
+  return $d;
+}
+
 sub month-days(Int $year, Int $month --> Int) {
  return 29 if $month ==  2 | 4 | 6 | 8 | 10;
  return 29 if $month == 12 && ! is-leap($year);
@@ -115,6 +139,7 @@ sub is-leap(Int $year --> Any) {
   return False;
 }
 
+# See "la Saga des Calendriers", page 155
 sub make-fct(int $a, int $b, int $c) {
   my $f = sub (int $x) { (($a × $x + $c         ).Rat / $b).floor };
   my $g = sub (int $x) { (($b × $x + $b - 1 - $c).Rat / $a).floor };
@@ -378,10 +403,6 @@ for Gregorian dates.
 =defn C<%j>
 
 The day of the year as a decimal number (range 001 to 355).
-
-=defn C<%L>
-
-Redundant with C<%Y> and strongly discouraged: the year number.
 
 =defn C<%m>
 
