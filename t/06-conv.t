@@ -1,0 +1,66 @@
+#
+# Checking the conversions
+#
+use v6.c;
+use Test;
+use Date::Calendar::Hijri;
+
+# Test data were computed by choosing Hijri dates (not very randomly),
+# applying "/usr/share/emacs/25.1/lisp/calendar/cal-islam.el"
+# and then "/usr/share/emacs/25.1/lisp/calendar/calendar.el"
+my @test-data = (
+         <    1  1  1      622  7 19 >
+       , <    1  1  2      622  7 20 >
+       , <    1  2  1      622  8 18 >
+       , <    1 12 29      623  7  7 >
+       , <    2  1  1      623  7  8 >
+       , < 1439 12 30     2018  9 11 >
+       , < 1440  1  1     2018  9 12 >
+       , < 1440 12 29     2019  8 31 >
+       , < 1441  1  1     2019  9  1 >
+       , < 1441 12 29     2020  8 19 >
+       , < 1442  1  1     2020  8 20 >
+       , < 1442  4 27     2020 12 13 >
+       , < 1442  6 27     2021  2 10 >
+       , < 1442  9 27     2021  5  9 >
+       , < 1442 12 30     2021  8  9 >
+       , < 1443  1  1     2021  8 10 >
+       , < 1443 12 29     2022  7 29 >
+       , < 1444  1  1     2022  7 30 >
+       , < 1444 12 29     2023  7 18 >
+       , < 1445  1  1     2023  7 19 >
+       , < 1445 12 30     2024  7  7 >
+       , < 1446  1  1     2024  7  8 >
+);
+
+plan  2 × @test-data.elems;
+
+for @test-data -> $datum {
+  my ($y-hi, $m-hi, $d-hi, $y-gr, $m-gr, $d-gr) = $datum;
+
+  my Date::Calendar::Hijri
+          $date-hi;
+  my Date $date-gr;
+
+  $date-gr .= new($y-gr, $m-gr, $d-gr);
+  $date-hi .= new-from-date($date-gr);
+
+  my $expected = sprintf("%04d-%02d-%02d", $y-hi, $m-hi, $d-hi);
+  is($date-hi.gist, $expected);
+}
+
+for @test-data -> $datum {
+  my ($y-hi, $m-hi, $d-hi, $y-gr, $m-gr, $d-gr) = $datum;
+
+  my Date::Calendar::Hijri
+          $date-hi;
+  my Date $date-gr;
+
+  $date-hi .= new(year => +$y-hi, month => +$m-hi, day => +$d-hi);
+  $date-gr  = $date-hi.to-date;
+
+  my $expected = sprintf("%04d-%02d-%02d", $y-gr, $m-gr, $d-gr);
+  is($date-gr.gist, $expected);
+}
+
+done-testing;
