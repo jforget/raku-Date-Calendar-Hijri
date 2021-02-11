@@ -445,6 +445,11 @@ The  conversions are  valid before  sunset. It  is up  to the  user to
 assert the  need of  incrementing the Hijri  date or  decrementing the
 Gregorian date if the time of day is in the evening after sunset.
 
+The month  names and  the day  names are  transcribed from  the Arabic
+script  to  the Latin  script.  There  are  several methods  for  this
+transcription.  So  the names  in  this  module  may differ  from  the
+transcribed names you find in other places.
+
 =head1 SEE ALSO
 
 =head2 Raku Software
@@ -492,6 +497,10 @@ CALENDRICA 4.0 -- Common Lisp, which can be download in the "Resources" section 
 L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-general-interest/calendrical-calculations-ultimate-edition-4th-edition?format=PB&isbn=9781107683167>
 (Actually, I have used the 3.0 version which is not longer available)
 
+L<https://api.kde.org/4.14-api/kdelibs-apidocs/kdecore/html/kcalendarsystemislamiccivil_8cpp_source.html>
+Since the KDE version number will change, you should rather use a search engine:
+L<https://html.duckduckgo.com/html?q=calendarsystemislamiccivil%20KDElibs>
+
 =head2 Books
 
 Calendrical Calculations (Third or Fourth Edition) by Nachum Dershowitz and
@@ -501,6 +510,14 @@ or L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-g
 
 I<La saga des calendriers>, by Jean Lefort, published by I<Belin> (I<Pour la Science>), ISBN 2-90929-003-5
 See L<https://www.belin-editeur.com/la-saga-des-calendriers>
+
+=head2 Internet
+
+L<Claus Tøndering's FAQ|https://www.tondering.dk/claus/cal/islamic.php>.
+
+L<https://www.funaba.org/cc>
+
+L<https://en.wikipedia.org/wiki/Islamic_calendar>
 
 =head1 AUTHOR
 

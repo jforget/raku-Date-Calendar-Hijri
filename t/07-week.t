@@ -19,6 +19,7 @@ done-testing;
 
 sub test-data {
   return (
+              # 1437 loses 3 days at the beginning (not shown) and 1 day at the end, so the 1437 week-year is 350-day long, 50 weeks
               # 1438 begins on Yaum al-Ithnain
               (1437, 12, 25, 350, '1437-W50-4') # ... Yaum al-Arbi'a 25 Thu al-Hijjah 1437
             , (1437, 12, 26, 351, '1437-W50-5') #     Yaum al-Khamees 26 Thu al-Hijjah 1437
@@ -31,6 +32,7 @@ sub test-data {
             , (1438,  1,  4,   4, '1438-W01-5') #     Yaum al-Khamees 04 Muharram 1438
             , (1438,  1,  5,   5, '1438-W01-6') #     Yaum al-Jumma 05 Muharram 1438
             , (1438,  1,  6,   6, '1438-W01-7') # ^^^ Yaum al-Sabt 06 Muharram 1438
+              # 1438 gains 1 day at the beginning and 2 days at the end, so the 1438 week-year is 357-day long, 51 weeks
               # 1439 begins on Yaum al-Jumma
             , (1438, 12, 25, 350, '1438-W51-1') # vvv Yaum al-Ahad 25 Thu al-Hijjah 1438
             , (1438, 12, 26, 351, '1438-W51-2') #     Yaum al-Ithnain 26 Thu al-Hijjah 1438
@@ -43,6 +45,7 @@ sub test-data {
             , (1439,  1,  4,   4, '1439-W01-2') #     Yaum al-Ithnain 04 Muharram 1439
             , (1439,  1,  5,   5, '1439-W01-3') #     Yaum al-Thulatha 05 Muharram 1439
             , (1439,  1,  6,   6, '1439-W01-4') # ... Yaum al-Arbi'a 06 Muharram 1439
+              # 1439 loses 2 days at the beginning and 3 days at the end, so the 1439 week-year is 350-day long, 50 weeks
               # 1440 begins on Yaum al-Arbi'a
             , (1439, 12, 25, 350, '1439-W50-5') #     Yaum al-Khamees 25 Thu al-Hijjah 1439
             , (1439, 12, 26, 351, '1439-W50-6') #     Yaum al-Jumma 26 Thu al-Hijjah 1439
@@ -56,6 +59,7 @@ sub test-data {
             , (1440,  1,  4,   4, '1440-W01-7') # ^^^ Yaum al-Sabt 04 Muharram 1440
             , (1440,  1,  5,   5, '1440-W02-1') # vvv Yaum al-Ahad 05 Muharram 1440
             , (1440,  1,  6,   6, '1440-W02-2') #     Yaum al-Ithnain 06 Muharram 1440
+              # 1440 gains 3 days at the beginning and neither loses nor gains at the end, so the 1440 week-year is 357-day long, 51 weeks
               # 1441 begins on Yaum al-Ahad
             , (1440, 12, 25, 350, '1440-W51-3') #     Yaum al-Thulatha 25 Thu al-Hijjah 1440
             , (1440, 12, 26, 351, '1440-W51-4') # ... Yaum al-Arbi'a 26 Thu al-Hijjah 1440
@@ -68,6 +72,7 @@ sub test-data {
             , (1441,  1,  4,   4, '1441-W01-4') # ... Yaum al-Arbi'a 04 Muharram 1441
             , (1441,  1,  5,   5, '1441-W01-5') #     Yaum al-Khamees 05 Muharram 1441
             , (1441,  1,  6,   6, '1441-W01-6') #     Yaum al-Jumma 06 Muharram 1441
+              # 1441 neither loses nor gains at the beginning and gains 3 days at the end, so the 1441 week-year is 357-day long, 51 weeks
               # 1442 begins on Yaum al-Khamees
             , (1441, 12, 25, 350, '1441-W50-7') # ^^^ Yaum al-Sabt 25 Thu al-Hijjah 1441
             , (1441, 12, 26, 351, '1441-W51-1') # vvv Yaum al-Ahad 26 Thu al-Hijjah 1441
@@ -80,6 +85,7 @@ sub test-data {
             , (1442,  1,  4,   4, '1442-W01-1') # vvv Yaum al-Ahad 04 Muharram 1442
             , (1442,  1,  5,   5, '1442-W01-2') #     Yaum al-Ithnain 05 Muharram 1442
             , (1442,  1,  6,   6, '1442-W01-3') #     Yaum al-Thulatha 06 Muharram 1442
+              # 1442 loses 3 days at the beginning and 2 days at the end, so the 1442 week-year is 350-day long, 50 weeks
               # 1443 begins on Yaum al-Thulatha
             , (1442, 12, 25, 350, '1442-W50-4') # ... Yaum al-Arbi'a 25 Thu al-Hijjah 1442
             , (1442, 12, 26, 351, '1442-W50-5') #     Yaum al-Khamees 26 Thu al-Hijjah 1442
@@ -93,6 +99,7 @@ sub test-data {
             , (1443,  1,  4,   4, '1443-W01-6') #     Yaum al-Jumma 04 Muharram 1443
             , (1443,  1,  5,   5, '1443-W01-7') # ^^^ Yaum al-Sabt 05 Muharram 1443
             , (1443,  1,  6,   6, '1443-W02-1') # vvv Yaum al-Ahad 06 Muharram 1443
+              # 1443 gains 2 days at the beginning and 1 day at the end, so the 1443 week-year is 357-day long, 51 weeks
               # 1444 begins on Yaum al-Sabt
             , (1443, 12, 25, 350, '1443-W51-2') #     Yaum al-Ithnain 25 Thu al-Hijjah 1443
             , (1443, 12, 26, 351, '1443-W51-3') #     Yaum al-Thulatha 26 Thu al-Hijjah 1443
@@ -105,6 +112,7 @@ sub test-data {
             , (1444,  1,  4,   4, '1444-W01-3') #     Yaum al-Thulatha 04 Muharram 1444
             , (1444,  1,  5,   5, '1444-W01-4') # ... Yaum al-Arbi'a 05 Muharram 1444
             , (1444,  1,  6,   6, '1444-W01-5') #     Yaum al-Khamees 06 Muharram 1444
+              # 1444 loses 1 day at the beginning and 3 days at the end, so the 1442 week-year is 350-day long, 50 weeks
               # 1445 begins on Yaum al-Arbi'a
             , (1444, 12, 25, 350, '1444-W50-6') #     Yaum al-Jumma 25 Thu al-Hijjah 1444
             , (1444, 12, 26, 351, '1444-W50-7') # ^^^ Yaum al-Sabt 26 Thu al-Hijjah 1444
@@ -117,6 +125,7 @@ sub test-data {
             , (1445,  1,  4,   4, '1445-W01-7') # ^^^ Yaum al-Sabt 04 Muharram 1445
             , (1445,  1,  5,   5, '1445-W02-1') # vvv Yaum al-Ahad 05 Muharram 1445
             , (1445,  1,  6,   6, '1445-W02-2') #     Yaum al-Ithnain 06 Muharram 1445
+              # 1445 gains 3 days at the beginning and loses 1 day at the end, so the 1445 week-year is 357-day long, 51 weeks
               # 1446 begins on Yaum al-Ithnain
             , (1445, 12, 25, 350, '1445-W51-3') #     Yaum al-Thulatha 25 Thu al-Hijjah 1445
             , (1445, 12, 26, 351, '1445-W51-4') # ... Yaum al-Arbi'a 26 Thu al-Hijjah 1445
@@ -130,6 +139,7 @@ sub test-data {
             , (1446,  1,  4,   4, '1446-W01-5') #     Yaum al-Khamees 04 Muharram 1446
             , (1446,  1,  5,   5, '1446-W01-6') #     Yaum al-Jumma 05 Muharram 1446
             , (1446,  1,  6,   6, '1446-W01-7') # ^^^ Yaum al-Sabt 06 Muharram 1446
+              # 1446 gains 1 day at the beginning and 2 days at the end, so the 1446 week-year is 357-day long, 51 weeks
               # 1447 begins on Yaum al-Jumma
             , (1446, 12, 25, 350, '1446-W51-1') # vvv Yaum al-Ahad 25 Thu al-Hijjah 1446
             , (1446, 12, 26, 351, '1446-W51-2') #     Yaum al-Ithnain 26 Thu al-Hijjah 1446
