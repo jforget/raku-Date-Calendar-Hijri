@@ -186,7 +186,7 @@ my Date::Calendar::Hijri $dt-hijri;
 my Date $dt-greg;
 
 $dt-hijri .= new(year => 1443, month => 1, day => 1);
-$dt-greg   = $dt-hijri->to-date;
+$dt-greg   = $dt-hijri.to-date;
 
 say $dt-greg;
 # --> 2021-08-10
