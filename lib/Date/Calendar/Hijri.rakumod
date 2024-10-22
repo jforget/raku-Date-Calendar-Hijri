@@ -2,7 +2,7 @@
 
 use Date::Calendar::Strftime;
 use Date::Calendar::Hijri::Names;
-unit class Date::Calendar::Hijri:ver<0.0.2>:auth<cpan:JFORGET>
+unit class Date::Calendar::Hijri:ver<0.0.2>:auth<zef:jforget>:api<0>
       does Date::Calendar::Strftime;
 
 has Int $.year  where { $_ ≥ 1 };
@@ -475,6 +475,12 @@ or L<https://github.com/jforget/raku-Date-Calendar-MayaAztec>
 L<Date::Calendar::FrenchRevolutionary>
 or L<https://github.com/jforget/raku-Date-Calendar-FrenchRevolutionary>
 
+L<Date::Calendar::Persian>
+or L<https://github.com/jforget/raku-Date-Calendar-Persian>
+
+L<Date::Calendar::Bahai>
+or L<https://github.com/jforget/raku-Date-Calendar-Bahai>
+
 =head2 Perl 5 Software
 
 L<Date::Hijri>
@@ -521,11 +527,11 @@ L<https://en.wikipedia.org/wiki/Islamic_calendar>
 
 =head1 AUTHOR
 
-Jean Forget <JFORGET@cpan.org>
+Jean Forget <J2N-FORGET at orange dot fr>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2021 (c) Jean Forget, all rights reserved
+Copyright 2021, 2024 (c) Jean Forget, all rights reserved
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
