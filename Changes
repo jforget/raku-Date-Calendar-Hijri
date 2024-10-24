@@ -1,6 +1,6 @@
 Revision history for Date-Calendar-Hijri
 
-0.0.2, released on ...
+0.0.2, released on Thursday 2024-10-24, or Yaum al-Khamees 20 Rabi` al-Thaani 1446 (arithmetic variant)
     - add an "api" property to the classes
     - migration from CPAN6 to zef
     - fewer t/*.t tests and adding xt/*.t tests
