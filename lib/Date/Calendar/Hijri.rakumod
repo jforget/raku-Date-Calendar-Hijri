@@ -2,7 +2,7 @@
 
 use Date::Calendar::Strftime;
 use Date::Calendar::Hijri::Names;
-unit class Date::Calendar::Hijri:ver<0.0.2>:auth<zef:jforget>:api<0>
+unit class Date::Calendar::Hijri:ver<0.1.0>:auth<zef:jforget>:api<1>
       does Date::Calendar::Strftime;
 
 has Int $.year  where { $_ ≥ 1 };

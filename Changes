@@ -1,5 +1,8 @@
 Revision history for Date-Calendar-Hijri
 
+0.1.0, released on...
+    - add a "daypart" method, so the "after sunset" dates will be properly converted from / to midnight-to-midnight calendars
+
 0.0.2, released on Thursday 2024-10-24, or Yaum al-Khamees 20 Rabi` al-Thaani 1446 (arithmetic variant)
     - add an "api" property to the classes
     - migration from CPAN6 to zef

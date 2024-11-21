@@ -2,7 +2,7 @@
 # Checking the getters when the date was created by conversion from another calendar
 # instead of being created with the Y-M-D values.
 #
-use v6.c;
+use v6.d;
 use Test;
 use Date::Calendar::Hijri;
 
