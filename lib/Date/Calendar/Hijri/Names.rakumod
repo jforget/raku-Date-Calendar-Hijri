@@ -64,7 +64,8 @@ use Date::Calendar::Hijri;
 =head1 DESCRIPTION
 
 Date::Calendar::Hijri::Names  is a  utility  module, providing  string
-values for the main module Date::Calendar::Hijri.
+values for the main module  Date::Calendar::Hijri. You should read the
+documentation for this main module.
 
 =head1 SOURCES
 
@@ -78,21 +79,21 @@ L<https://html.duckduckgo.com/html?q=calendarsystemislamiccivil%20KDElibs>
 
 =head2 Perl 5 Software
 
-L<Date::Hijri>
+L<Date::Hijri|https://metacpan.org/pod/Date::Hijri>
 
-L<DateTime>
+L<DateTime|https://metacpan.org/pod/DateTime>
 
-L<DateTime::Calendar::Hijri>
+L<DateTime::Calendar::Hijri|https://metacpan.org/pod/DateTime::Calendar::Hijri>
 
-L<Date::Hijri::Simple>
+L<Date::Hijri::Simple|https://metacpan.org/pod/Date::Hijri::Simple>
 
-L<Date::Converter>
+L<Date::Converter|https://metacpan.org/pod/Date::Converter>
 
 =head2 Other Software
 
 date(1), strftime(3)
 
-F<calendar/cal-islam.el>  in emacs  or xemacs.
+C<calendar/cal-islam.el>  in emacs  or xemacs.
 
 CALENDRICA 4.0 -- Common Lisp, which can be download in the "Resources" section of
 L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-general-interest/calendrical-calculations-ultimate-edition-4th-edition?format=PB&isbn=9781107683167>

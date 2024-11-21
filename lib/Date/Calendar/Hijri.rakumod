@@ -363,74 +363,74 @@ variants of the date attribute. Not used with the Hijri calendar.
 
 The allowed type codes are:
 
-=defn C<%A>
+=defn %A
 
 The full day of week name.
 
-=defn C<%b>
+=defn %b
 
 The abbreviated month name.
 
-=defn C<%B>
+=defn %B
 
 The full month name.
 
-=defn C<%d>
+=defn %d
 
 The day of the month as a decimal number (range 01 to 30).
 
-=defn C<%e>
+=defn %e
 
 Like C<%d>, the  day of the month  as a decimal number,  but a leading
 zero is replaced by a space.
 
-=defn C<%f>
+=defn %f
 
 The month as a decimal number (1  to 12). Unlike C<%m>, a leading zero
 is replaced by a space.
 
-=defn C<%F>
+=defn %F
 
 Equivalent to %Y-%m-%d (the ISO 8601 date format)
 
-=defn C<%G>
+=defn %G
 
 The "week year"  as a decimal number. Mostly similar  to C<%Y>, but it
 may differ  on the very  first days  of the year  or on the  very last
 days. Analogous to the year number  in the so-called "ISO date" format
 for Gregorian dates.
 
-=defn C<%j>
+=defn %j
 
 The day of the year as a decimal number (range 001 to 355).
 
-=defn C<%m>
+=defn %m
 
 The month as a two-digit decimal  number (range 01 to 12), including a
 leading zero if necessary.
 
-=defn C<%n>
+=defn %n
 
 A newline character.
 
-=defn C<%t>
+=defn %t
 
 A tab character.
 
-=defn C<%u>
+=defn %u
 
 The day of week as a 1..7 number.
 
-=defn C<%V>
+=defn %V
 
 The week  number as defined above,  similar to the week  number in the
 so-called "ISO date" format for Gregorian dates.
 
-=defn C<%Y>
+=defn %Y
 
 The year as a decimal number.
 
-=defn C<%%>
+=defn %%
 
 A literal `%' character.
 
@@ -454,50 +454,50 @@ transcribed names you find in other places.
 
 =head2 Raku Software
 
-L<Date::Calendar::Strftime>
+L<Date::Calendar::Strftime|https://raku.land/zef:jforget/Date::Calendar::Strftime>
 or L<https://github.com/jforget/raku-Date-Calendar-Strftime>
 
-L<Date::Calendar::Gregorian>
+L<Date::Calendar::Gregorian|https://raku.land/zef:jforget/Date::Calendar::Gregorian>
 or L<https://github.com/jforget/raku-Date-Calendar-Gregorian>
 
-L<Date::Calendar::Julian>
+L<Date::Calendar::Julian|https://raku.land/zef:jforget/Date::Calendar::Julian>
 or L<https://github.com/jforget/raku-Date-Calendar-Julian>
 
-L<Date::Calendar::Hebrew>
+L<Date::Calendar::Hebrew|https://raku.land/zef:jforget/Date::Calendar::Hebrew>
 or L<https://github.com/jforget/raku-Date-Calendar-Hebrew>
 
-L<Date::Calendar::CopticEthiopic>
+L<Date::Calendar::CopticEthiopic|https://raku.land/zef:jforget/Date::Calendar::CopticEthiopic>
 or L<https://github.com/jforget/raku-Date-Calendar-CopticEthiopic>
 
-L<Date::Calendar::MayaAztec>
+L<Date::Calendar::MayaAztec|https://raku.land/zef:jforget/Date::Calendar::MayaAztec>
 or L<https://github.com/jforget/raku-Date-Calendar-MayaAztec>
 
-L<Date::Calendar::FrenchRevolutionary>
+L<Date::Calendar::FrenchRevolutionary|https://raku.land/zef:jforget/Date::Calendar::FrenchRevolutionary>
 or L<https://github.com/jforget/raku-Date-Calendar-FrenchRevolutionary>
 
-L<Date::Calendar::Persian>
+L<Date::Calendar::Persian|https://raku.land/zef:jforget/Date::Calendar::Persian>
 or L<https://github.com/jforget/raku-Date-Calendar-Persian>
 
-L<Date::Calendar::Bahai>
+L<Date::Calendar::Bahai|https://raku.land/zef:jforget/Date::Calendar::Bahai>
 or L<https://github.com/jforget/raku-Date-Calendar-Bahai>
 
 =head2 Perl 5 Software
 
-L<Date::Hijri>
+L<Date::Hijri|https://metacpan.org/pod/Date::Hijri>
 
-L<DateTime>
+L<DateTime|https://metacpan.org/pod/DateTime>
 
-L<DateTime::Calendar::Hijri>
+L<DateTime::Calendar::Hijri|https://metacpan.org/pod/DateTime::Calendar::Hijri>
 
-L<Date::Hijri::Simple>
+L<Date::Hijri::Simple|https://metacpan.org/pod/Date::Hijri::Simple>
 
-L<Date::Converter>
+L<Date::Converter|https://metacpan.org/pod/Date::Converter>
 
 =head2 Other Software
 
 date(1), strftime(3)
 
-F<calendar/cal-islam.el>  in emacs  or xemacs.
+C<calendar/cal-islam.el>  in emacs  or xemacs.
 
 CALENDRICA 4.0 -- Common Lisp, which can be download in the "Resources" section of
 L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-general-interest/calendrical-calculations-ultimate-edition-4th-edition?format=PB&isbn=9781107683167>
