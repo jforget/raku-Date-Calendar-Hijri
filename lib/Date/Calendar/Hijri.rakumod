@@ -204,6 +204,27 @@ say $dt-greg;
 
 =end code
 
+Converting a date while caring about sunset:
+
+=begin code :lang<raku>
+
+use Date::Calendar::Strftime;
+use Date::Calendar::Gregorian;
+use Date::Calendar::Hijri;
+
+my Date::Calendar::Gregorian $dt-greg;
+my Date::Calendar::Hijri     $dt-hijri;
+
+$dt-greg  .= new(year => 2024, month => 11, day => 13, daypart => daylight);
+$dt-hijri .= new-from-date($dt-greg);
+say $dt-hijri.strftime("%A %d %B %Y");        # -->  Yaum al-Arbi'a 11 Jumaada al-Awal 1446
+
+$dt-greg  .= new(year => 2024, month => 11, day => 13, daypart => after-sunset);
+$dt-hijri .= new-from-date($dt-greg);
+say $dt-hijri.strftime("%A %d %B %Y");        # -->  Yaum al-Khamees 12 Jumaada al-Awal 1446
+
+=end code
+
 =head1 DESCRIPTION
 
 The real Hijri calendar is  an observational calendar. That means that
@@ -222,17 +243,21 @@ into Gregorian (or possibly other) calendar and the other way.
 
 =head3 new
 
-Create an Hijri date by giving the year, month and day numbers.
+Create an Hijri  date by giving the year, month  and day numbers, plus
+optionally   the   day   part   (C<before-sunrise>,   C<daylight>   or
+C<after-sunset>).
 
 =head3 new-from-date
 
 Build an  Hijri date  by cloning  an object  from another  class. This
 other   class    can   be    the   core    class   C<Date>    or   any
-C<Date::Calendar::>R<xxx> class with a C<daycount> method.
+C<Date::Calendar::>R<xxx>  class   with  a  C<daycount>   method  and,
+hopefully, a C<daypart> method.
 
 =head3 new-from-daycount
 
-Build an Hijri date from the Modified Julian Day number.
+Build  an Hijri  date  from the  Modified Julian  Day  number and  the
+C<daypart> value.
 
 =head2 Accessors
 
@@ -243,6 +268,16 @@ Gives a short string representing the date, in C<YYYY-MM-DD> format.
 =head3 year, month, day
 
 The numbers defining the date.
+
+=head3 daypart
+
+A  number indicating  which part  of the  day. This  number should  be
+filled   and   compared   with   the   following   subroutines,   with
+self-documenting names:
+
+=item before-sunrise
+=item daylight
+=item after-sunset
 
 =head3 month-name
 
@@ -300,7 +335,7 @@ the default value is C<"Date"> for the Gregorian calendar.
 
 To convert a date from a  calendar to another, you have two conversion
 styles,  a "push"  conversion and  a "pull"  conversion. For  example,
-while converting "11  Thu al-Qi`dah 1440" to  the French Revolutionary
+while converting "11 Jumaada al-Awal 1446" to the French Revolutionary
 calendar, you can code:
 
 =begin code :lang<perl6>
@@ -312,8 +347,8 @@ my  Date::Calendar::Hijri               $d-orig;
 my  Date::Calendar::FrenchRevolutionary $d-dest-push;
 my  Date::Calendar::FrenchRevolutionary $d-dest-pull;
 
-$d-orig .= new(year  => 1440
-             , month =>   11
+$d-orig .= new(year  => 1446
+             , month =>    5
              , day   =>   11);
 $d-dest-push  = $d-orig.to-date("Date::Calendar::FrenchRevolutionary");
 $d-dest-pull .= new-from-date($d-orig);
@@ -424,6 +459,23 @@ leading zero if necessary.
 
 A newline character.
 
+=defn %Ep
+
+Gives a 1-char string representing the day part:
+
+=item C<☾> or C<U+263E> before sunrise,
+=item C<☼> or C<U+263C> during daylight,
+=item C<☽> or C<U+263D> after sunset.
+
+Rationale: in  C or in  other programming languages,  when C<strftime>
+deals with a date-time object, the day is split into two parts, before
+noon and  after noon. The  C<%p> specifier  reflects this by  giving a
+C<"AM"> or C<"PM"> string.
+
+The  3-part   splitting  in   the  C<Date::Calendar::>R<xxx>   may  be
+considered as  an alternate  splitting of  a day.  To reflect  this in
+C<strftime>, we use an alternate version of C<%p>, therefore C<%Ep>.
+
 =defn %t
 
 A tab character.
@@ -445,21 +497,49 @@ The year as a decimal number.
 
 A literal `%' character.
 
-
 =head1 PROBLEMS AND KNOWN BUGS
 
 As already stated, this module does not give the real Hijri dates, but
 dates from a variant calendar  which follows closely, but imperfectly,
 the Hijri calendar.
 
-The  conversions are  valid before  sunset. It  is up  to the  user to
-assert the  need of  incrementing the Hijri  date or  decrementing the
-Gregorian date if the time of day is in the evening after sunset.
-
 The month  names and  the day  names are  transcribed from  the Arabic
 script  to  the Latin  script.  There  are  several methods  for  this
 transcription.  So  the names  in  this  module  may differ  from  the
 transcribed names you find in other places.
+
+=head2 Security issues
+
+Another  issue,   as  explained  in   the  C<Date::Calendar::Strftime>
+documentation. Please ensure that  format-string passed to C<strftime>
+comes from  a trusted source.  For example, by including  a outrageous
+length in  a C<strftime> specifier, you  can drain your PC's  RAM very
+fast.
+
+=head2 Relations with :ver<0.0.x> classes
+
+Version 0.1.0 (and API 1) was  introduced to ease the conversions with
+other calendars in  which the day is  defined as midnight-to-midnight.
+If all C<Date::Calendar::>R<xxx> classes use  version 0.1.x and API 1,
+the conversions will be correct. But if some C<Date::Calendar::>R<xxx>
+classes use version 0.0.x and API 0, there might be problems.
+
+A date from a 0.0.x class has no C<daypart> attribute. But when "seen"
+from  a  0.1.x class,  the  0.0.x  date  seems  to have  a  C<daypart>
+attribute equal to C<daylight>. When converted from a 0.1.x class to a
+0.0.x  class,  the  date  may  just  shift  from  C<after-sunset>  (or
+C<before-sunrise>) to C<daylight>, or it  may shift to the C<daylight>
+part of  the prior (or  next) date. This  means that a  roundtrip with
+cascade conversions  may give the  starting date,  or it may  give the
+date prior or after the starting date.
+
+=head2 Time
+
+This module  and the C<Date::Calendar::>R<xxx> associated  modules are
+still date  modules, they are not  date-time modules. The user  has to
+give  the C<daypart>  attribute  as a  value among  C<before-sunrise>,
+C<daylight> or C<after-sunset>. There is no provision to give a HHMMSS
+time and convert it to a C<daypart> parameter.
 
 =head1 SEE ALSO
 
