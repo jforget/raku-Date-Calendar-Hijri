@@ -2,6 +2,8 @@
 
 use Date::Calendar::Strftime;
 use Date::Calendar::Hijri::Names;
+use Date::Calendar::Strftime;
+
 unit class Date::Calendar::Hijri:ver<0.1.0>:auth<zef:jforget>:api<1>
       does Date::Calendar::Strftime;
 
@@ -9,14 +11,15 @@ has Int $.year  where { $_ ≥ 1 };
 has Int $.month where { 1 ≤ $_ ≤ 12 };
 has Int $.day   where { 1 ≤ $_ ≤ 30 };
 has Int $.daycount;
+has Int $.daypart where { before-sunrise() ≤ $_ ≤ after-sunset() };
 has Int $.day-of-year;
 has Int $.day-of-week;
 has Int $.week-number;
 has Int $.week-year;
 
-method BUILD(Int:D :$year, Int:D :$month, Int:D :$day) {
+method BUILD(Int:D :$year, Int:D :$month, Int:D :$day, Int :$daypart = daylight()) {
   $._chek-build-args($year, $month, $day);
-  $._build-from-args($year, $month, $day);
+  $._build-from-args($year, $month, $day, $daypart);
 }
 
 method _chek-build-args(Int $year, Int $month, Int $day) {
@@ -37,10 +40,11 @@ my ($f0, $g0) = make-fct(     1,  1,         -1);
 my ($f1, $g1) = make-fct(   325, 11,       -320);
 my ($f2, $g2) = make-fct(10_631, 30, 58_442_583);
 
-method _build-from-args(Int $year, Int $month, Int $day) {
-  $!year   = $year;
-  $!month  = $month;
-  $!day    = $day;
+method _build-from-args(Int $year, Int $month, Int $day, Int $daypart) {
+  $!year    = $year;
+  $!month   = $month;
+  $!day     = $day;
+  $!daypart = $daypart;
 
   # computing derived attributes
   my Int $daycount   = $f2($year) + $f1($month) + $f0($day) - jd-to-mjd();
@@ -52,6 +56,10 @@ method _build-from-args(Int $year, Int $month, Int $day) {
   # between 1 Muharram and the target day, where $nb == $f1($month) + $f0($day).
   # Add 1 and you have the day-of-year value.
   my Int $doy        = 1 + $f1($month) + $f0($day);
+  if $daypart == after-sunset() {
+    # after computing $doy and $dow, not before!
+    --$daycount;
+  }
 
   # storing derived attributes
   $!day-of-year = $doy;
@@ -103,10 +111,13 @@ method day-abbr {
 }
 
 method new-from-date($date) {
-  $.new-from-daycount($date.daycount);
+  $.new-from-daycount($date.daycount, daypart => $date.?daypart // daylight);
 }
 
-method new-from-daycount(Int $count) {
+method new-from-daycount(Int $count is copy, Int :$daypart = daylight) {
+  if $daypart == after-sunset() {
+    ++$count;
+  }
   # See "la Saga des Calendriers", page 155
   my Int $JJ     = $count + jd-to-mjd();
   my Int $yyyy   = $g2($JJ);
@@ -114,12 +125,12 @@ method new-from-daycount(Int $count) {
   my Int $mm     = $g1($R2);
   my Int $R1     = $R2 - $f1($mm);
   my Int $dd     = $g0($R1);
-  $.new(year => $yyyy, month => $mm, day => $dd);
+  $.new(year => $yyyy, month => $mm, day => $dd, daypart => $daypart);
 }
 
 method to-date($class = 'Date') {
   # See "Learning Perl 6" page 177
-  my $d = ::($class).new-from-daycount($.daycount);
+  my $d = ::($class).new-from-daycount($.daycount, daypart => $.daypart);
   return $d;
 }
 

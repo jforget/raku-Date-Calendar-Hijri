@@ -5,6 +5,7 @@
 use v6.d;
 use Test;
 use Date::Calendar::Hijri;
+use Date::Calendar::Strftime;
 
 my @tests = (('zzz',       3, 'zzz')
            , ('%Y-%m-%d', 10, '1442-06-27')
@@ -19,8 +20,9 @@ my @tests = (('zzz',       3, 'zzz')
            , ('%Y',        4, '1442')
            , ('%G',        4, '1442')
            , ('%V',        2, '25')
+           , ('%Ep',       1, '☼')
              );
-plan  10 + 2 × @tests.elems;
+plan  11 + 2 × @tests.elems;
 
 my Date $d0 .= new('2021-02-10');
 my Date::Calendar::Hijri $d .= new-from-date($d0);
@@ -35,6 +37,7 @@ is($d.month-name , 'Jumaada al-Thaani');
 is($d.day-name   , "Yaum al-Arbi'a");
 is($d.day-abbr   , 'Arb');
 is($d.day-of-year, 175);
+is($d.daypart    , daylight);
 
 
 for @tests -> $test {

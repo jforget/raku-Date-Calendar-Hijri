@@ -4,6 +4,7 @@
 use v6.d;
 use Test;
 use Date::Calendar::Hijri;
+use Date::Calendar::Strftime;
 
 my @tests = (('zzz',       3, 'zzz')
            , ('%Y-%m-%d', 10, '1442-06-25')
@@ -18,10 +19,11 @@ my @tests = (('zzz',       3, 'zzz')
            , ('%Y',        4, '1442')
            , ('%G',        4, '1442')
            , ('%V',        2, '25')
+           , ('%Ep',       1, '☾')
              );
-plan  10 + 2 × @tests.elems;
+plan  11 + 2 × @tests.elems;
 
-my Date::Calendar::Hijri $d .= new(year => 1442, month => 6, day => 25);
+my Date::Calendar::Hijri $d .= new(year => 1442, month => 6, day => 25, daypart => before-sunrise);
 
 is($d.month,   6);
 is($d.day,    25);
@@ -33,6 +35,7 @@ is($d.month-name , 'Jumaada al-Thaani');
 is($d.day-name   , 'Yaum al-Ithnain');
 is($d.day-abbr   , 'Ith');
 is($d.day-of-year, 173);
+is($d.daypart    , before-sunrise);
 
 
 for @tests -> $test {
@@ -41,7 +44,7 @@ for @tests -> $test {
 
   # Remembering RT ticket 100311 for the Perl 5 module DateTime::Calendar::FrenchRevolutionary
   # see https://github.com/jforget/DateTime-Calendar-FrenchRevolutionary/issues/6
-  # Even if the relations between UTF-8 and Perl6 are much simpler than between UTF-8 and Perl5
+  # Even if the relations between UTF-8 and Raku are much simpler than between UTF-8 and Perl5
   # better safe than sorry
   is($result.chars, $length);
   is($result,       $expected);
