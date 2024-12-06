@@ -338,7 +338,7 @@ styles,  a "push"  conversion and  a "pull"  conversion. For  example,
 while converting "11 Jumaada al-Awal 1446" to the French Revolutionary
 calendar, you can code:
 
-=begin code :lang<perl6>
+=begin code :lang<raku>
 
 use Date::Calendar::Hijri;
 use Date::Calendar::FrenchRevolutionary;
@@ -369,7 +369,7 @@ This method is  very similar to the homonymous functions  you can find
 in several  languages (C, shell, etc).  It also takes some  ideas from
 C<printf>-similar functions. For example
 
-=begin code :lang<perl6>
+=begin code :lang<raku>
 
 $df.strftime("%04d blah blah blah %-25B")
 

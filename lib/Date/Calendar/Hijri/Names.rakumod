@@ -55,7 +55,7 @@ Date::Calendar::Hijri::Names - string values for the Hijri calendar
 
 =head1 SYNOPSIS
 
-=begin code :lang<perl6>
+=begin code :lang<raku>
 
 use Date::Calendar::Hijri;
 
