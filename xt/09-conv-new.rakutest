@@ -29,7 +29,13 @@ use Date::Calendar::Persian::Astronomical;
 
 my $ver-hi = '0.1.0';
 my @data  = (
-     (1444,  7, 23, after-sunset,   'co', "Pshoment 07 Mes 1739 ☽"      , "Thl 23 Raj 1444 ☽", "Gregorian: 2023-02-13")
+     (1444,  8,  3, after-sunset,   'ba', "Istiqlál 18 Mul 0179 ☽"      , "Jum 03 Sha 1444 ☽", "Gregorian: 2023-02-23")
+   , (1444,  8,  3, before-sunrise, 'ba', "Istiqlál 18 Mul 0179 ☾"      , "Jum 03 Sha 1444 ☾", "Gregorian: 2023-02-24")
+   , (1444,  8,  3, daylight,       'ba', "Istiqlál 18 Mul 0179 ☼"      , "Jum 03 Sha 1444 ☼", "Gregorian: 2023-02-24")
+   , (1444, 10,  1, after-sunset,   'be', "Jalál 14 Jal 0180 ☽"         , "Sab 01 Shw 1444 ☽", "Gregorian: 2023-04-21")
+   , (1444, 10,  1, before-sunrise, 'be', "Jalál 14 Jal 0180 ☾"         , "Sab 01 Shw 1444 ☾", "Gregorian: 2023-04-22")
+   , (1444, 10,  1, daylight,       'be', "Jalál 14 Jal 0180 ☼"         , "Sab 01 Shw 1444 ☼", "Gregorian: 2023-04-22")
+   , (1444,  7, 23, after-sunset,   'co', "Pshoment 07 Mes 1739 ☽"      , "Thl 23 Raj 1444 ☽", "Gregorian: 2023-02-13")
    , (1444,  7, 23, before-sunrise, 'co', "Pshoment 07 Mes 1739 ☾"      , "Thl 23 Raj 1444 ☾", "Gregorian: 2023-02-14")
    , (1444,  7, 23, daylight,       'co', "Pshoment 07 Mes 1739 ☼"      , "Thl 23 Raj 1444 ☼", "Gregorian: 2023-02-14")
    , (1440,  1, 16, after-sunset,   'et', "Arb 17 Mes 2011 ☽"           , "Kha 16 Muh 1440 ☽", "Gregorian: 2018-09-26")
@@ -56,16 +62,6 @@ my @data  = (
    , (1444,  8, 18, after-sunset,   'jc', "Friday 25 Feb 2776 ☽"        , "Sab 18 Sha 1444 ☽", "Gregorian: 2023-03-10")
    , (1444,  8, 18, before-sunrise, 'jc', "Saturday 26 Feb 2776 ☾"      , "Sab 18 Sha 1444 ☾", "Gregorian: 2023-03-11")
    , (1444,  8, 18, daylight,       'jc', "Saturday 26 Feb 2776 ☼"      , "Sab 18 Sha 1444 ☼", "Gregorian: 2023-03-11")
-            );
-
-# for later tests
-my @data-to-do = (
-     (1444,  8,  3, after-sunset,   'ba', "Istiqlál 18 Mul 0179 ☽"      , "Jum 03 Sha 1444 ☽", "Gregorian: 2023-02-23")
-   , (1444,  8,  3, before-sunrise, 'ba', "Istiqlál 18 Mul 0179 ☾"      , "Jum 03 Sha 1444 ☾", "Gregorian: 2023-02-24")
-   , (1444,  8,  3, daylight,       'ba', "Istiqlál 18 Mul 0179 ☼"      , "Jum 03 Sha 1444 ☼", "Gregorian: 2023-02-24")
-   , (1444, 10,  1, after-sunset,   'be', "Jalál 14 Jal 0180 ☽"         , "Sab 01 Shw 1444 ☽", "Gregorian: 2023-04-21")
-   , (1444, 10,  1, before-sunrise, 'be', "Jalál 14 Jal 0180 ☾"         , "Sab 01 Shw 1444 ☾", "Gregorian: 2023-04-22")
-   , (1444, 10,  1, daylight,       'be', "Jalál 14 Jal 0180 ☼"         , "Sab 01 Shw 1444 ☼", "Gregorian: 2023-04-22")
    , (1445, 10,  9, after-sunset,   'pe', "Chahar shanbe 29 Far 1403 ☽" , "Kha 09 Shw 1445 ☽", "Gregorian: 2024-04-17")
    , (1445, 10,  9, before-sunrise, 'pe', "Panj shanbe 30 Far 1403 ☾"   , "Kha 09 Shw 1445 ☾", "Gregorian: 2024-04-18")
    , (1445, 10,  9, daylight,       'pe', "Panj shanbe 30 Far 1403 ☼"   , "Kha 09 Shw 1445 ☼", "Gregorian: 2024-04-18")
@@ -113,7 +109,8 @@ my %class =   a0 => 'Date::Calendar::Aztec'
             , pa => 'Date::Calendar::Persian::Astronomical'
             ;
 
-plan 12 × @data.elems;
+plan 12 × @data.elems
+   + 12 × @data-maya.elems;
 
 for (@data) -> $datum {
   my ($year, $month, $day, $daypart, $cal, $str2, $str3) = $datum;
@@ -136,6 +133,37 @@ for (@data) -> $datum {
   my $d5 = ::(%class{$cal}).new-from-date($d1);
   is($d5.strftime("%A %d %b %Y %Ep"), $str2, "testing pull with $str2");
   is($d5.^ver.Str.substr(0, 4), '0.1.');
+  my $d6 = $d5.to-date(%class<hi>);
+  is($d6.strftime("%a %d %b %Y %Ep"), $str3, "testing pull-push with $str2 and $str3");
+  is($d6.^ver, $ver-hi);
+
+  # pull-pull
+  my Date::Calendar::Hijri $d7 .= new-from-date($d5);
+  is($d7.strftime("%a %d %b %Y %Ep"), $str3, "testing pull-pull with $str2 and $str3");
+  is($d7.^ver, $ver-hi);
+}
+
+for (@data-maya) -> $datum {
+  my ($year, $month, $day, $daypart, $cal, $str2, $str3) = $datum;
+  my Date::Calendar::Hijri $d1 .= new(year => $year, month => $month, day => $day, daypart => $daypart);
+
+  # push-push
+  my $d2 = $d1.to-date(%class{$cal});
+  is($d2.strftime("%e %B %V %A"), $str2, "testing push with $str2");
+  is(substr($d2.^ver.Str, 0, 4), '0.1.');
+  my $d3 = $d2.to-date(%class<hi>);
+  is($d3.strftime("%a %d %b %Y %Ep"), $str3, "testing push-push with $str2 and $str3");
+  is($d3.^ver, $ver-hi);
+
+  # push-pull
+  my Date::Calendar::Hijri $d4 .= new-from-date($d2);
+  is($d4.strftime("%a %d %b %Y %Ep"), $str3, "testing push-pull with $str2 and $str3");
+  is($d4.^ver, $ver-hi);
+
+  # pull-push
+  my $d5 = ::(%class{$cal}).new-from-date($d1);
+  is($d5.strftime("%e %B %V %A"), $str2, "testing pull with $str2");
+  is(substr($d5.^ver.Str, 0, 4), '0.1.');
   my $d6 = $d5.to-date(%class<hi>);
   is($d6.strftime("%a %d %b %Y %Ep"), $str3, "testing pull-push with $str2 and $str3");
   is($d6.^ver, $ver-hi);

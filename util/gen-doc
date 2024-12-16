@@ -8,10 +8,11 @@ export DOC=$THIS_DIR/doc
 
 raku --doc=HTML lib/Date/Calendar/Hijri.rakumod        > $DOC/Hijri.html
 raku --doc=HTML lib/Date/Calendar/Hijri/Names.rakumod  > $DOC/Hijri-Names.html
+raku --doc=HTML util/gener-test-0.1.0.raku             > $DOC/Hijri-gener-test.html
 
 case $1 in
    --show)
      cd $DOC
-     firefox Hijri.html Hijri-Names.html
+     firefox Hijri.html Hijri-Names.html Hijri-gener-test.html
      ;;
 esac

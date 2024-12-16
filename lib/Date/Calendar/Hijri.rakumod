@@ -269,6 +269,11 @@ Gives a short string representing the date, in C<YYYY-MM-DD> format.
 
 The numbers defining the date.
 
+=head3 daycount
+
+Modified Julian  Day Number  (a day-only scheme  based on  17 November
+1858).
+
 =head3 daypart
 
 A  number indicating  which part  of the  day. This  number should  be
@@ -290,11 +295,6 @@ The month of the  date, as a 3-char string.
 =head3 day-name
 
 The name of the day within the week.
-
-=head3 daycount
-
-Convert  the date  to Modified  Julian Day  Number (a  day-only scheme
-based on 17 November 1858).
 
 =head3 day-of-week
 
@@ -607,12 +607,14 @@ or L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-g
 
 I<La saga des calendriers>, by Jean Lefort, published by I<Belin> (I<Pour la Science>), ISBN 2-90929-003-5
 See L<https://www.belin-editeur.com/la-saga-des-calendriers>
+(website no longer responding).
 
 =head2 Internet
 
 L<Claus Tøndering's FAQ|https://www.tondering.dk/claus/cal/islamic.php>.
 
 L<https://www.funaba.org/cc>
+(website no longer working).
 
 L<https://en.wikipedia.org/wiki/Islamic_calendar>
 
