@@ -234,7 +234,7 @@ Remove the first comma in the C<@data-greg> and C<@data> variables.
 =head2 Other dates, test file for new conversions
 
 Cut and past  the lines into the C<@data> variable  of the proper test
-file. Erase the comma at the beginning of both variables.
+file. Erase the comma at the beginning of the first line of C<@data>.
 
 All computed  dates are daylight  dates. So  it does not  matter which
 version  and API  are  such  and such  classes.  Daylight dates  gives

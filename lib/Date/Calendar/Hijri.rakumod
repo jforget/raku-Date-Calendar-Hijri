@@ -215,13 +215,17 @@ use Date::Calendar::Hijri;
 my Date::Calendar::Gregorian $dt-greg;
 my Date::Calendar::Hijri     $dt-hijri;
 
-$dt-greg  .= new(year => 2024, month => 11, day => 13, daypart => daylight);
+$dt-greg  .= new(year => 2024, month => 11, day => 13, daypart => before-sunrise());
 $dt-hijri .= new-from-date($dt-greg);
-say $dt-hijri.strftime("%A %d %B %Y");        # -->  Yaum al-Arbi'a 11 Jumaada al-Awal 1446
+say $dt-hijri.strftime("%A %d %B %Y");        # -->  "Yaum al-Arbi'a 11 Jumaada al-Awal 1446"
 
-$dt-greg  .= new(year => 2024, month => 11, day => 13, daypart => after-sunset);
+$dt-greg  .= new(year => 2024, month => 11, day => 13, daypart => daylight());
 $dt-hijri .= new-from-date($dt-greg);
-say $dt-hijri.strftime("%A %d %B %Y");        # -->  Yaum al-Khamees 12 Jumaada al-Awal 1446
+say $dt-hijri.strftime("%A %d %B %Y");        # -->  "Yaum al-Arbi'a 11 Jumaada al-Awal 1446" again
+
+$dt-greg  .= new(year => 2024, month => 11, day => 13, daypart => after-sunset());
+$dt-hijri .= new-from-date($dt-greg);
+say $dt-hijri.strftime("%A %d %B %Y");        # -->  "Yaum al-Khamees 12 Jumaada al-Awal 1446"
 
 =end code
 
@@ -280,9 +284,9 @@ A  number indicating  which part  of the  day. This  number should  be
 filled   and   compared   with   the   following   subroutines,   with
 self-documenting names:
 
-=item before-sunrise
-=item daylight
-=item after-sunset
+=item before-sunrise()
+=item daylight()
+=item after-sunset()
 
 =head3 month-name
 
@@ -513,10 +517,10 @@ transcribed names you find in other places.
 Another  issue,   as  explained  in   the  C<Date::Calendar::Strftime>
 documentation. Please ensure that  format-string passed to C<strftime>
 comes from  a trusted source.  For example, by including  a outrageous
-length in  a C<strftime> specifier, you  can drain your PC's  RAM very
-fast.
+length in a C<strftime> specifier,  an untrusted source can drain your
+PC's RAM very fast.
 
-=head2 Relations with :ver<0.0.x> classes
+=head2 Relations with :ver<0.0.x> classes and with core class Date
 
 Version 0.1.0 (and API 1) was  introduced to ease the conversions with
 other calendars in  which the day is  defined as midnight-to-midnight.
@@ -532,6 +536,12 @@ C<before-sunrise>) to C<daylight>, or it  may shift to the C<daylight>
 part of  the prior (or  next) date. This  means that a  roundtrip with
 cascade conversions  may give the  starting date,  or it may  give the
 date prior or after the starting date.
+
+If you install C<<Date::Calendar::Hijri:ver<0.1.0>>>, why would you
+refrain from upgrading other C<Date::Calendar::>R<xxxx> classes? So
+actually, this issue applies mainly to the core class C<Date>, because
+you may prefer avoiding the installation of
+C<Date::Calendar::Gregorian>.
 
 =head2 Time
 
