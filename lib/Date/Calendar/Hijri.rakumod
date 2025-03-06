@@ -4,7 +4,7 @@ use Date::Calendar::Strftime;
 use Date::Calendar::Hijri::Names;
 use Date::Calendar::Strftime;
 
-unit class Date::Calendar::Hijri:ver<0.1.0>:auth<zef:jforget>:api<1>
+unit class Date::Calendar::Hijri:ver<0.1.1>:auth<zef:jforget>:api<1>
       does Date::Calendar::Strftime;
 
 has Int $.year  where { $_ ≥ 1 };
@@ -539,7 +539,7 @@ part of  the prior (or  next) date. This  means that a  roundtrip with
 cascade conversions  may give the  starting date,  or it may  give the
 date prior or after the starting date.
 
-If you install C<<Date::Calendar::Hijri:ver<0.1.0>>>, why would you
+If you install C<<Date::Calendar::Hijri:ver<0.1.1>>>, why would you
 refrain from upgrading other C<Date::Calendar::>R<xxxx> classes? So
 actually, this issue applies mainly to the core class C<Date>, because
 you may prefer avoiding the installation of
@@ -602,6 +602,9 @@ date(1), strftime(3)
 
 C<calendar/cal-islam.el>  in emacs  or xemacs.
 
+L<https://pypi.org/project/convertdate/>
+or L<https://convertdate.readthedocs.io/en/latest/modules/islamic.html>
+
 CALENDRICA 4.0 -- Common Lisp, which can be download in the "Resources" section of
 L<https://www.cambridge.org/us/academic/subjects/computer-science/computing-general-interest/calendrical-calculations-ultimate-edition-4th-edition?format=PB&isbn=9781107683167>
 (Actually, I have used the 3.0 version which is not longer available)
@@ -628,6 +631,14 @@ L<Claus Tøndering's FAQ|https://www.tondering.dk/claus/cal/islamic.php>.
 L<https://www.funaba.org/cc>
 (website no longer working).
 
+L<https://www.fourmilab.ch/documents/calendar/>
+or its French-speaking versions
+L<https://www.patricklecoq.fr/convert/cnv_calendar.html>
+and L<https://louis-aime.github.io/fourmilab_calendar_upgraded/index-fr.html>
+
+L<https://www.ephemeride.com/calendrier/autrescalendriers/21/autres-types-de-calendriers.html>
+(in French)
+
 L<https://en.wikipedia.org/wiki/Islamic_calendar>
 
 =head1 AUTHOR
@@ -636,7 +647,7 @@ Jean Forget <J2N-FORGET at orange dot fr>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2021, 2024 (c) Jean Forget, all rights reserved
+Copyright 2021, 2024, 2025 (c) Jean Forget, all rights reserved
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
